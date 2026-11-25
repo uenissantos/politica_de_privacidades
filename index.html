@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Políticas de Privacidade — Uenis Programador</title>
+<meta name="description" content="Políticas de privacidade dos aplicativos de Uenis Programador.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Políticas de Privacidade</h1>
+  <p class="mut">Aplicativos de Uenis Programador. Escolha o aplicativo para ver a política dele.</p>
+  <div id="lista"><p class="mut">Carregando…</p></div>
+  <footer>Contato: <a href="mailto:uenisprogramador@gmail.com">uenisprogramador@gmail.com</a></footer>
+</main>
+<script>
+// Para adicionar um app: crie a pasta dele e inclua uma linha em apps.json (veja COMO_ADICIONAR.md).
+fetch("apps.json").then(r => r.json()).then(apps => {
+  const box = document.getElementById("lista");
+  box.innerHTML = "";
+  apps.forEach(a => {
+    const d = document.createElement("div");
+    d.className = "card";
+    const l = document.createElement("a");
+    l.className = "t";
+    l.href = a.pasta + "/";
+    l.textContent = a.nome;
+    const p = document.createElement("p");
+    p.className = "mut";
+    p.style.margin = "4px 0 0";
+    p.textContent = a.descricao || "";
+    d.appendChild(l);
+    d.appendChild(p);
+    box.appendChild(d);
+  });
+}).catch(() => {
+  document.getElementById("lista").innerHTML = '<p><a href="calculadora-de-rotas/">Calculadora de Rotas</a></p>';
+});
+</script>
+</body>
+</html>
